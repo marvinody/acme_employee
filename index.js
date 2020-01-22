@@ -17,7 +17,11 @@ const spacer = (text) => {
 	console.log(`${stars} ${text} ${stars}`)
 }
 
+// first variable name is good! not sure what db means. database? maybe more descriptive would help
 const findEmployeeByName = (name, db) => {
+	// I like seeing the array methods!
+	// but what does filter return?
+	// make sure you are returning what the prompt asks for
 	return db.filter((el) => {
 		return el.name === name ? el : ''
 	})
@@ -32,6 +36,7 @@ console.log(employee)
 spacer('')
 
 spacer('findManagerFor Shep')
+// what's being passed in to the first parameter?
 const findManagerFor = (callback, db) => {
 	return db.filter((el) => {
 		return el.id === callback[0].managerId ? el : ''
@@ -48,7 +53,10 @@ spacer('')
 
 spacer('findCoworkersFor Larry')
 
+// having the earlier methods return an array makes the later ones shoot yourself in the foot
+// but other than that, it looks perfect
 const findCoworkersFor = (callback, db) => {
+	// great variable names here
 	let employee = callback[0]
 	let employeeID = callback[0].id
 	let data = db.filter((el) => {
@@ -56,8 +64,10 @@ const findCoworkersFor = (callback, db) => {
 			? el
 			: ''
 	})
-	console.log(data)
+	// make sure you return and not just console.log. can lead to hidden bugs later
+	return data
 }
+
 //given an employee and a list of employees, return the employees who report to the same manager
 console.log(
 	findCoworkersFor(findEmployeeByName('larry', employees), employees)
@@ -68,10 +78,12 @@ console.log(
 
 spacer('')
 
+// good idea with recursion!
 const findManagementChainForEmployee = (callback, db) => {
 	const manager = findManagerFor(callback, db)
 	console.log(manager[0])
-	if (manager[0]) {
+	if (manager[0]) { // looking like some kind of base/recursive case
+		// good start
 		managementChain = findManagementChainForEmployee(manager[0], db)
 		// console.log(managementChain);
 		// managementChain.push(manager[0]);
